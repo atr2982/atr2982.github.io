@@ -15,7 +15,7 @@
         // JSONP request
         var jsonData = $.ajax({
           url: 'https://data.sparkfun.com/output/' + public_key + '.json',
-          data: {'gte' :{'timestamp' : 'now - 5 days'}},
+          data: {'gte' :{'timestamp' : 'now - 2 days'}},
           dataType: 'jsonp',
         }).done(function (results) {
 
@@ -34,7 +34,7 @@
           var chart = new google.visualization.LineChart($('#chart').get(0));
 
           chart.draw(data, {
-            title: 'Livingroom Light Level'
+            //title: 'Livingroom Light Level'
           });
 
         });
@@ -53,6 +53,16 @@
 
   </head>
   <body>
+  
+   <h3 style="color:rgb(51,102,204); margin-left:60px; margin-top:50px;">Previous 48 Hours of light level readings from my LivingRoom</h3>
+      <p style="margin-left:60px;">Level Range 1 - 1024</p>
+
+   
+    <div style="background-color: #FF850A;"></div>
+    <!-- Replace "#FF850A" to change the color -->
+      
+      
     <div id="chart" style="width: 100%;"></div>
+    
   </body>
 </html>
