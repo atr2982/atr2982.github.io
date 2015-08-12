@@ -1,68 +1,33 @@
-<html>
-  <head>
-    <!-- EXTERNAL LIBS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://www.google.com/jsapi"></script>
+---
+layout: default
+---
 
-    <!-- EXAMPLE SCRIPT -->
-    <script>
-
-      // onload callback
-      function drawChart() {
-
-        var public_key = 'MGwGn5Rw7WCMXRX3KAAz';
-
-        // JSONP request
-        var jsonData = $.ajax({
-          url: 'https://data.sparkfun.com/output/' + public_key + '.json',
-          data: {'gte' :{'timestamp' : 'now - 2 days'}},
-          dataType: 'jsonp',
-        }).done(function (results) {
-
-          var data = new google.visualization.DataTable();
-
-          data.addColumn('datetime', 'Time');
-          data.addColumn('number', 'Light');
-
-          $.each(results, function (i, row) {
-            data.addRow([
-              (new Date(row.timestamp)),
-              parseFloat(row.light)
-            ]);
-          });
-
-          var chart = new google.visualization.LineChart($('#chart').get(0));
-
-          chart.draw(data, {
-            //title: 'Livingroom Light Level'
-          });
-
-        });
-
-      }
-
-      // load chart lib
-      google.load('visualization', '1', {
-        packages: ['corechart']
-      });
-
-      // call drawChart once google charts is loaded
-      google.setOnLoadCallback(drawChart);
-
-    </script>
-
-  </head>
-  <body>
-  
-   <h3 style="color:rgb(51,102,204); margin-left:60px; margin-top:50px;">Previous 48 Hours of light level readings from my LivingRoom</h3>
-      <p style="margin-left:60px;">Level Range 1 - 1024</p>
-
-   
-    <div style="background-color: #FF850A;"></div>
-    <!-- Replace "#FF850A" to change the color -->
-      
-      
-    <div id="chart" style="width: 100%;"></div>
+<div class="home">
     
-  </body>
-</html>
+    <div id="maincontent">
+       <div id="mainleft">
+            <img src="images/me.jpg" alt="me at the bar">
+        </div>
+        <div id="mainright">
+            <p class="text" id="maintext">{{ site.description }}</p>
+        </div>
+        <div id="mainclear"></div>
+    </div>
+
+
+  <h1 class="page-heading">Newest Blog</h1>
+
+  <ul class="post-list">
+    {% for post in site.posts limit:1 %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%A %b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+        <p>{{ post.preview }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
